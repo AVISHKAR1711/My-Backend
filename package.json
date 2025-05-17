@@ -2,16 +2,21 @@
   "name": "backend_project",
   "version": "1.0.0",
   "description": "My Backend Project",
-  "type" :"module", 
+  "type": "module",
   "keywords": [
     "javascript",
     "backend"
   ],
   "license": "ISC",
   "author": "Avishkar Pawar",
- 
+
+
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3"
   }
 }
