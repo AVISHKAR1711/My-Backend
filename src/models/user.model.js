@@ -1,6 +1,7 @@
 import mongoose, {Schema} from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { ApiError } from "../utils/ApiError";
 
 const userSchema = new Schema(
     {
@@ -57,6 +58,12 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+subscriptionSchema.pre("save", async function (next) {
+  if (this.subscriber.equals(this.channel)) {
+    throw new ApiError(400, "cannot subscribe to own channel ")
+  }
+  next();
+});
 
 userSchema.methods.isPasswordCorrect = async function(password){
    return await bcrypt.compare(password, this.password)
