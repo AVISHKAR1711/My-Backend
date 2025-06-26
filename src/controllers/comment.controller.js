@@ -130,7 +130,7 @@ const updateComment = asyncHandler(async (req, res) => {
         throw new ApiError(404, "can not find comment")
     }
 
-    if(comment.owner.equals(req.body._id)){
+    if(!(comment.owner.equals(req.body._id))){
         throw new ApiError(400, "you have not owner of this comment")
     }
 
@@ -169,6 +169,11 @@ const deleteComment = asyncHandler(async (req, res) => {
     if(!comment){
         throw new ApiError(404,"the video comment is not found")
     }
+
+    if(comment.owner.equals(req.body._id)){
+        throw new ApiError(400, "you have not owner of this comment")
+    }
+
 
     const deleteComment = await Comment.findOneAndDelete(commentId)
 
